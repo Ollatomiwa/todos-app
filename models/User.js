@@ -10,10 +10,10 @@ const userSchema = new Schema ({
 });
 
 //registering the password and hashing it//
-userSchema.pre("save", async function (next){ // the .pre method allows us do somee operations before saving anything, like hashing a password//
+userSchema.pre("save", async function (next){ // the .pre method allows us do some operations before saving anything, like hashing a password//
     const user = this;
     if (!user.isModified) return next(); // this check if the user is new//
-    // we are generating a salt,a salt is baically the number of rounds you want to use in hashing a password//
+    // we are generating a salt,a salt is a random value added to the password before hashing//
     let salt = await bcrypt.genSalt(10);
     let  hash = await bcrypt.hash(user.password, salt);
     user.password = hash;
